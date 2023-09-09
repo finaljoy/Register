@@ -117,9 +117,14 @@ Page({
 		})
 	},
 	recharge(){
-		wx.navigateTo({
-			url: '../recharge/recharge',
-		  })
+		wx.showToast({
+			title: '暂未开放',
+			icon:'error',
+			duration: 2000
+		})
+		// wx.navigateTo({
+		// 	url: '../recharge/recharge',
+		//   })
 	},
 	make(){
 		wx.navigateTo({

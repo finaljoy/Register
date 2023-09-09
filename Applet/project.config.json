@@ -1,9 +1,5 @@
 {
 	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": [],
-		"include": []
-	},
 	"setting": {
 		"bundle": false,
 		"userConfirmedBundleSwitch": false,
@@ -24,8 +20,6 @@
 		"nodeModules": false,
 		"enhance": true,
 		"useMultiFrameRuntime": true,
-		"useApiHook": true,
-		"useApiHostProcess": true,
 		"showShadowRootInWxmlPanel": true,
 		"packNpmManually": false,
 		"enableEngineNative": false,
@@ -36,15 +30,18 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"ignoreUploadUnusedFiles": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.24.0",
-	"appid": "wxe5db81c97a309bca",
-	"projectname": "%E9%A2%84%E7%BA%A6%E6%8C%82%E5%8F%B7",
 	"condition": {},
 	"editorSetting": {
 		"tabIndent": "tab",
 		"tabSize": 4
-	}
+	},
+	"packOptions": {
+		"ignore": [],
+		"include": []
+	},
+	"appid": "wx707507fcdb6cd8c8"
 }

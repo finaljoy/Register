@@ -141,7 +141,7 @@ export default {
             data.append('reg', this.info.reg);
             data.append('dia', this.info.dia);
             data.append('brief', this.info.brief);
-            this.$http.post('admin/dep/addDoctor', data, config).then(res => {
+            this.$http.post(`admin/dep/addDoctor`, data, config).then(res => {
                 if (res.data.code == 200) {
                     this.$message.success('添加成功');
                 } else {

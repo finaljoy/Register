@@ -1,0 +1,23 @@
+version: '3'
+## 使用前请先配置.evn文件
+
+services:
+  # mysql
+  db:
+    image: mariadb
+    container_name: mariadb
+    volumes:
+      - ./dbdata/:/var/lib/mysql
+    ports:
+      - "3334:3306"
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}  
+      MYSQL_PASSWORD: ${DATABASE_PASS}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASS}
+    networks:
+      - "code-network"
+      
+networks:
+  code-network:
+    driver: bridge

@@ -11,7 +11,6 @@
 	<view class="zhuBlock zhuTop" bindtap="make">
 		<view>
 			<text class="tit">预约挂号</text>
-			<text class="ftit">在线挂号预约</text>
 		</view>
 		<image class="zhuImg" src="../../image/yy.png"></image>
 	</view>
@@ -24,7 +23,7 @@
 	</view>
 </view>
 <view class="mor">
-	<view class="morBlock" bindtap="indexPay">
+	<!-- <view class="morBlock" bindtap="indexPay">
 		<image src="../../image/jf.png"></image>
 		<text>自助缴费</text>
 	</view>
@@ -35,6 +34,11 @@
 	<view class="morBlock" bindtap="refund">
 		<image src="../../image/tk.png"></image>
 		<text>在线退款</text>
+	</view> -->
+	<view class="morBlock" bindtap="message">
+		<view class="msgNum"  wx:if="{{msgNum > 0}}">{{msgNum}}</view>
+		<image src="../../image/xx.png"></image>
+		<text>专家团队</text>
 	</view>
 	<view class="morBlock" bindtap="message">
 		<view class="msgNum"  wx:if="{{msgNum > 0}}">{{msgNum}}</view>

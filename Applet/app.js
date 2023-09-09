@@ -3,7 +3,7 @@ App({
   onLaunch() {
   },
   globalData: {
-    $url : 'https://.......'
+    $url : 'http://localhost:8088'
   },
   notPermission:()=>{
 	wx.showModal({

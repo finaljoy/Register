@@ -56,6 +56,7 @@ const uploadFun = (req, res, next) => {
             }
         }
     }).single('photo');
+
     upload(req, res, (err) => {
         if (err) {
             if (err.code == 'LIMIT_FILE_SIZE') {
@@ -78,9 +79,10 @@ const uploadFun = (req, res, next) => {
             }
         } else {
             //将文件名单独拿出来
-            req.filename = req.file.filename
-            next()
+            req.filename = req.file.filename;
+            next();
         }
+        
     })
 }
 
@@ -344,7 +346,7 @@ router.post('/addDoctor', uploadFun, (req, res) => {
     '${req.body.hosId}','${req.body.depId}','${req.body.depTwoId}','${req.body.position}','${req.body.reg}',
     '${req.body.brief}','${'/images/doctor/' + req.filename}','${req.body.dia}')`;
     db.query(sql, (err, data) => {
-        if(err) console.log(err)
+        if(err) console.log(err);
         if (err) return tw(res, 500, '数据库错误');
         if (data.affectedRows == 0) return tw(res, 400, '添加失败');
         tw(res, 200, '添加成功');
