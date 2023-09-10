@@ -203,7 +203,10 @@ router.get('/getDoctor', (req, res) => {
     let page = req.query.page || 1;
     let limit = req.query.limit || 10;
     let switchinfo = req.query.switch == 'on' ? ' where state = 0' : ''
-    if (req.query.paging == 'on' && !isEmptyStr(req.query.depTwoId)) {
+    if (req.query.paging != 'on' && !isEmptyStr(req.query.name)) {
+        sql = `select id, name from doctor LIMIT ${(page - 1) * limit} , ${limit} ${switchinfo};`
+        sql2 = `select count(*) as total from doctor ${switchinfo}`
+    } else if (req.query.paging == 'on' && !isEmptyStr(req.query.depTwoId)) {
         sql = `select *,(select name from depHospital where id = hosId) as hosName,(select name from depInclude where id = depTwoId) as depName from doctor LIMIT ${(page - 1) * limit} , ${limit} ${switchinfo};`
         sql2 = `select count(*) as total from doctor ${switchinfo}`
     } else if (req.query.paging == 'on' && isEmptyStr(req.query.depTwoId)) {

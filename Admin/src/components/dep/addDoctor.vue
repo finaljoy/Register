@@ -16,10 +16,10 @@
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item label="选择科室">
+                    <!-- <el-form-item label="选择科室">
                         <el-cascader :props="props" :options="options" v-model="dep" style="width:calc(100% - 70px)">
                         </el-cascader>
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item label="医生姓名">
                         <el-input v-model="info.name" autocomplete="off" placeholder="请输入医生姓名"
                             style="width:calc(100% - 70px)"></el-input>
@@ -133,9 +133,9 @@ export default {
             }
             let data = new FormData();
             data.append('photo', this.photo);
-            data.append('depTwoId', this.dep[2]);
-            data.append('depId', this.dep[1]);
-            data.append('hosId', this.dep[0]);
+            //data.append('depTwoId', this.dep[2]);
+            //data.append('depId', this.dep[1]);
+            //data.append('hosId', this.dep[0]);
             data.append('name', this.info.name);
             data.append('position', this.info.position);
             data.append('reg', this.info.reg);

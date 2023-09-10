@@ -334,15 +334,23 @@
                         <el-button type="primary" @click="mod">提交</el-button>
                     </div>
                 </el-dialog>
-
             </el-dialog>
 
             <!-- 添加部分弹窗 -->
             <el-dialog title="添加一条排班" :visible.sync="addUtw" style="min-width:730px;" class="addUtwBox">
                 <div class="addrow">
-                    <P>选择医生</P>
+                    <P>选择科室</P>
                     <el-cascader class="seatDoctor" label="选择医生" :props="props" :options="options" v-model="addValue">
                     </el-cascader>
+                </div>
+                <div class="addrow">
+                    <P>选择医生</P>
+                    <el-autocomplete 
+                        v-model="addobj.doctorName" 
+                        value-key="name" 
+                        :fetch-suggestions="querySearchAsync"
+                        @select = "handleSelectDoctor"
+                        placeholder="搜索医生"/>
                 </div>
                 <div class="addrow">
                     <P>选择日期</P>
@@ -411,6 +419,8 @@ export default {
             },
             addValue: [],
             addobj: {
+                doctorId:'',
+                doctorName:'',
                 time: '',
                 Mstate: true,
                 Astate: true,
@@ -474,6 +484,21 @@ export default {
                     this.$message.error(res.data.msg)
                 }
             })
+        },
+        querySearchAsync(searchstring,cb) {
+            console.log(searchstring)
+            let search = `name=${searchstring}`
+            this.$http.get(`simple/getDoctor?${search}`).then(res => {
+                if (res.data.code == 200) {
+                    cb(res.data.data)
+                    this.$message.success('搜索完成')
+                } else {
+                    this.$message.error(res.data.msg)
+                }
+            })
+        },
+        handleSelectDoctor(item){
+            this.addobj.doctorId = item.id
         },
         isfalse(mun) {
             if (mun == '0' || mun == 0) return false
@@ -611,10 +636,10 @@ export default {
             if (this.addobj.MtimeSegment == '' && this.addobj.AtimeSegment == '') return this.$message.error('请选择时间段')
             if (this.addobj.Mnum == '' && this.addobj.Anum == '') return this.$message.error('请输入可预约人数')
             if (this.addobj.time == '') return this.$message.error('请选择排班时间')
-            if (this.addValue[0] == null) return this.$message.error('请选择医生')
+            if (this.addValue[0] == null) return this.$message.error('请选择地点')
             if (this.addobj.Astate == true && (this.addobj.Anum == '' || this.addobj.AtimeSegment == '')) return this.$message.error('请输入完整')
             if (this.addobj.Mstate == true && (this.addobj.Mnum == '' || this.addobj.MtimeSegment == '')) return this.$message.error('请输入完整')
-            let doctorId = this.addValue[3]
+            let doctorId = this.addobj.doctorId
             let hosId = this.addValue[0]
             let depTwoId = this.addValue[2]
             let Astate = this.addobj.Astate ? 0 : 1;
@@ -792,7 +817,7 @@ export default {
                         arr2.push({
                             value: item.id,
                             label: item.name,
-                            leaf: level >= 3
+                            leaf: level >= 2
                         })
                     })
                     resolve(arr2);
@@ -805,25 +830,26 @@ export default {
                         arr2.push({
                             value: item.id,
                             label: item.name,
-                            leaf: level >= 3
-                        })
-                    })
-                    resolve(arr2);
-                })
-            } else if (level == 3) {
-                this.$http.get(`simple/getDoctor?depTwoId=${node.value}`).then(res => {
-                    let arr = res.data.data;
-                    let arr2 = []
-                    arr.forEach(item => {
-                        arr2.push({
-                            value: item.id,
-                            label: item.name,
-                            leaf: level >= 3
+                            leaf: level >= 2
                         })
                     })
                     resolve(arr2);
                 })
             }
+            // else if (level == 3) {
+            //     this.$http.get(`simple/getDoctor?depTwoId=${node.value}`).then(res => {
+            //         let arr = res.data.data;
+            //         let arr2 = []
+            //         arr.forEach(item => {
+            //             arr2.push({
+            //                 value: item.id,
+            //                 label: item.name,
+            //                 leaf: level >= 3
+            //             })
+            //         })
+            //         resolve(arr2);
+            //     })
+            // }
         },
         // 字段筛选
         filterHandler(value, row, column) {

@@ -4,7 +4,7 @@ import {
     form, FormItem, Input, Message, Loading, Container, Header, Aside, Main,
     DropdownItem, DropdownMenu, Dropdown, Dialog, Menu, Submenu, MenuItem, Card, Table, TableColumn, Pagination,
     Tag, Image, Cascader, RadioGroup, RadioButton, DatePicker, Switch, TimePicker, MessageBox, Notification, Radio, Tooltip, Select, Option,
-    Upload
+    Upload, Autocomplete
 
 } from 'element-ui'
 
@@ -13,6 +13,7 @@ Vue.use(form)
 Vue.use(FormItem)
 Vue.use(Input)
 // Vue.use(Message)
+Vue.use(Autocomplete)
 Vue.prototype.$message = Message;
 Vue.prototype.$loading = Loading.service;
 Vue.use(Container)

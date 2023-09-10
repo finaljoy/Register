@@ -338,13 +338,12 @@ router.delete('/delDepTwo', (req, res) => {
 
 //添加医生
 router.post('/addDoctor', uploadFun, (req, res) => {
-    if (!isEmptyStr(req.body.name) || !isEmptyStr(req.body.hosId) || !isEmptyStr(req.body.depId) ||
-        !isEmptyStr(req.body.depTwoId) || !isEmptyStr(req.body.position) || !isEmptyStr(req.body.reg) ||
-        !isEmptyStr(req.body.brief)) return tw(res, 500, '参数错误');
+    // 2023-09-10 中医师与部门脱钩，取消验证： !isEmptyStr(req.body.hosId) || !isEmptyStr(req.body.depId) ||!isEmptyStr(req.body.depTwoId) ||
+    if (!isEmptyStr(req.body.name) || !isEmptyStr(req.body.position) || !isEmptyStr(req.body.reg) ||!isEmptyStr(req.body.brief))
+        return tw(res, 500, '参数错误');
     if (!['主治医师', '主任医师', '副主任医师'].includes(req.body.position)) return tw(res, 500, '职称错误');
-    let sql = `insert into doctor(name,hosId,depId,depTwoId,position,reg,brief,photo,dia) values('${req.body.name}',
-    '${req.body.hosId}','${req.body.depId}','${req.body.depTwoId}','${req.body.position}','${req.body.reg}',
-    '${req.body.brief}','${'/images/doctor/' + req.filename}','${req.body.dia}')`;
+    // 2023-09-10 中医师与部门脱钩，取消column：hosId,depId,depTwoId,  '${req.body.hosId}','${req.body.depId}','${req.body.depTwoId}',
+    let sql = `insert into doctor(name,position,reg,brief,photo,dia) values('${req.body.name}','${req.body.position}','${req.body.reg}','${req.body.brief}','${'/images/doctor/' + req.filename}','${req.body.dia}')`;
     db.query(sql, (err, data) => {
         if(err) console.log(err);
         if (err) return tw(res, 500, '数据库错误');
